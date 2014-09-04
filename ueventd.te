@@ -23,3 +23,17 @@ allow ueventd dev_type:blk_file { create setattr unlink };
 allow ueventd self:netlink_kobject_uevent_socket create_socket_perms;
 allow ueventd efs_file:dir search;
 allow ueventd efs_file:file r_file_perms;
+
+# ueventd needs to relabel files that pop in and out of sysfs
+allow ueventd sysfs:file relabelfrom;
+
+# ueventd will set permissions on cpufreq nodes
+allow ueventd sysfs_devices_system_cpu:file setattr;
+
+# ueventd loads wifi firmware on a ton of devices
+allow ueventd wifi_data_file:dir r_dir_perms;
+allow ueventd wifi_data_file:file r_file_perms;
+
+# ueventd loads audio firmware on many devices
+allow ueventd audio_data_file:dir r_dir_perms;
+allow ueventd audio_data_file:file r_file_perms;

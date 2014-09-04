@@ -83,3 +83,8 @@ neverallow netd system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
 neverallow netd { app_data_file system_data_file }:dir_file_class_set write;
+
+allow netd self:capability { setuid sys_module setgid };
+allow netd self:packet_socket create_socket_perms;
+allow netd radio_data_file:dir rw_dir_perms;
+allow netd radio_data_file:file create_file_perms;
